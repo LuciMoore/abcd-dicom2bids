@@ -6,10 +6,13 @@
 #
 exe_name=$0
 exe_dir=`dirname "$0"`
-if [ ! -d $TMPDIR/$USER ]; then
-    mkdir $TMPDIR/$USER
+
+TMPDIR='/home/groups/brainmri/adhd_asd/data/adhd_Y1-Y8_2022/niftis/temp'
+
+if [ ! -d $TMPDIR ]; then
+    mkdir $TMPDIR
 fi
-export MCR_CACHE_ROOT=$TMPDIR/$USER
+export MCR_CACHE_ROOT=$TMPDIR
 echo "------------------------------------------"
 if [ "x$1" = "x" ]; then
   echo Usage:
@@ -26,7 +29,7 @@ else
   echo LD_LIBRARY_PATH is ${LD_LIBRARY_PATH};
   shift 1
   RANDHASH=`cat /dev/urandom | tr -cd "a-f0-9" | head -c 8`
-  export MCR_CACHE_ROOT=$TMPDIR/$USER/$RANDHASH
+  export MCR_CACHE_ROOT=$TMPDIR/$RANDHASH
   mkdir -p $MCR_CACHE_ROOT
   args=
   while [ $# -gt 0 ]; do
